@@ -4,9 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+
+    /* Estilo del scroll en WebKit (Chrome, Edge) */
+    .iframe-container::-webkit-scrollbar {
+      width: 20px;         /* Grosor del scroll vertical */
+      height: 20px;        /* Grosor del scroll horizontal */
+    }
+
+    .iframe-container::-webkit-scrollbar-track {
+      background: #f0f0f0; /* Color de fondo del scroll */
+    }
+
+    .iframe-container::-webkit-scrollbar-thumb {
+      background: #888;    /* Color del "pulgar" del scroll */
+      border-radius: 10px;
+    }
+
+    .iframe-container::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    /* Firefox (requiere usar scrollbar-width) */
+    .iframe-container {
+      scrollbar-width: thick;            /* Opciones: auto | thin | none | thick */
+      scrollbar-color: #888 #f0f0f0;     /* thumb color | track color */
+    }
+  </style>
 </head>
 <body>
-    <div style="width: 98%; height: vh; padding-top: 433.0709%;
+    <div class="iframe-container" style="width: 98%; height: 100vh; padding-top: 433.0709%;
  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: scroll;
  border-radius: 8px; will-change: transform;">
   <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0; "

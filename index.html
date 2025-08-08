@@ -1,44 +1,45 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
+<style>
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+    scrollbar-width: none; /* Oculta la barra nativa en Firefox */
+  }
 
-    /* Estilo del scroll en WebKit (Chrome, Edge) */
-    .iframe-container::-webkit-scrollbar {
-      width: 20px;         /* Grosor del scroll vertical */
-      height: 20px;        /* Grosor del scroll horizontal */
-    }
+  .iframe-container::-webkit-scrollbar {
+    display: none; /* Oculta la barra nativa en WebKit (Chrome/Safari) */
+  }
 
-    .iframe-container::-webkit-scrollbar-track {
-      background: #f0f0f0; /* Color de fondo del scroll */
-    }
+  /* Indicador de scroll simulado */
+  .fake-scrollbar {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    width: 6px;
+    height: 40px;
+    background-color: rgba(136, 136, 136, 0.6);
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 10;
+  }
+</style>
 
-    .iframe-container::-webkit-scrollbar-thumb {
-      background: #888;    /* Color del "pulgar" del scroll */
-      border-radius: 10px;
-    }
-
-    .iframe-container::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-
-    /* Firefox (requiere usar scrollbar-width) */
-    .iframe-container {
-      scrollbar-width: thick;            /* Opciones: auto | thin | none | thick */
-      scrollbar-color: #888 #f0f0f0;     /* thumb color | track color */
-    }
-  </style>
-</head>
-<body>
-    <div class="iframe-container" style="width: 98%; height: 100%; padding-top: 433.0709%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: scroll;
+<div class="iframe-container" onscroll="updateFakeScrollbar(this)" style="position: relative; width: 100%; height: 0; padding-top: 433.0709%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
  border-radius: 8px; will-change: transform;">
-  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0; "
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
     src="https://www.canva.com/design/DAGvI6nOoy4/TlKjjJ1jkxF_BlBT5oqq3A/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
   </iframe>
 </div>
-</body>
-</html>
+
+<script>
+  function updateFakeScrollbar(container) {
+    const scrollbar = document.getElementById('fakeScrollbar');
+    const scrollHeight = container.scrollHeight - container.clientHeight;
+    const scrollTop = container.scrollTop;
+    const percent = scrollTop / scrollHeight;
+    const availableHeight = container.clientHeight - scrollbar.offsetHeight;
+    scrollbar.style.top = `${percent * availableHeight}px`;
+  }
+</script>
